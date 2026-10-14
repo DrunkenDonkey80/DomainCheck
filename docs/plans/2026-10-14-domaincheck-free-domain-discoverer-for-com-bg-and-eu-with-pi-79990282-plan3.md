@@ -2,7 +2,7 @@
 plan3: true
 status: ready
 created: 2026-10-14
-updated: 2026-10-14T14:54:19.823Z
+updated: 2026-10-14T14:55:18.180Z
 reviewed: 2026-10-14
 started: 2026-10-14T14:33:33.649Z
 ---
@@ -201,9 +201,7 @@ Design direction (frontend-design skill: `C:\soft\git\ce-workflow\skills\fronten
 
 ### Phase 3: Storage and ideation [code]
 
-- [ ] **P3-1** Create `src/db.mjs` with the schema above and tests for round trip, unique tried names, global taken cache and candidate state.
-  - Also test that a failed rating batch rolls back, and that the board rebuilds from candidate rows after the database reopens.
-  - Check: C-TEST passes using an in-memory database.
+- [x] **P3-1** Added src/db.mjs (node:sqlite, with cascading foreign keys) and 5 tests: round trip, unique tried names per project, a global availability cache where taken is final and unknown isn't stored, candidates-only rating with rollback of a bad batch, and rebuilding the board after reopening. The availability table drops the unused `method` column.
 - [ ] **P3-2** Create `src/ideas.mjs` with model loading from settings, prompt building, the parallel pi spawn, and label parsing and validation.
   - Test parsing and validation with canned stdout.
   - Timeout test: a stub launcher starts a long-lived grandchild; after the timeout, both processes are gone and the call resolves.
