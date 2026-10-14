@@ -82,7 +82,7 @@ export function createApp({ db, checker, bgQueue, ideas = generateIdeas, suggest
       let suggestError = null;
       try {
         log(`suggestRules project=${pid} ratings=${items.length}`);
-        const texts = await suggest(ctxOf(pid), items);
+        const texts = await suggest({ ...ctxOf(pid), pending: db.listSuggestions(pid) }, items);
         db.addSuggestions(pid, texts);
       } catch (e) { suggestError = e.message; log(`suggestRules failed: ${e.message}`); }
       return { saved: items.length, suggestError, ...view(pid) };

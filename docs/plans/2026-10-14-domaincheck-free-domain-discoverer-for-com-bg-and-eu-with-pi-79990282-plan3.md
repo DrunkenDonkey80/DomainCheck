@@ -2,7 +2,7 @@
 plan3: true
 status: ready
 created: 2026-10-14
-updated: 2026-10-14T16:29:06.390Z
+updated: 2026-10-14T16:40:42.561Z
 reviewed: 2026-10-14
 started: 2026-10-14T14:33:33.649Z
 ---
@@ -219,9 +219,7 @@ Design direction (frontend-design skill: `C:\soft\git\ce-workflow\skills\fronten
 
 ### Phase 5: Prompt quality and flow tuning [think]
 
-- [ ] **P5-1** Run two real projects (photobook, interior design) for three rounds each, and tune the ideation and suggestion prompts.
-  - Judge: share of free names, rule adherence, repeats, and diversity across the models. Record prompt changes in Amendments.
-  - Check: a round of N=10 on .com and .bg reaches 10 free names within the cap.
+- [x] **P5-1** Ran 2 real projects (photobook and interior design) for 3 rounds each and tuned the ideation and suggestion prompts (see Amendments). Every round found 10 or more free names in 1 sub-round. .com free share was 10→26 of ~38 (photobook) and 21→34 of ~40 (interior), against 7→30 and 11→31 before. Hyphens dropped to 0, at most 6 names overlapped between models, and suggestions stopped repeating.
 - [human] **P5-2** User tries the page on a real naming task and confirms the flow and readability.
   - Check: user approval, recorded in Decisions.
   - note: Needs the user to try the page.
@@ -258,3 +256,10 @@ Append material changes and their reasons; preserve the original request and set
   - Finding 4, grandchild process on timeout: **accepted**, confirmed in `C:\Users\Flex\.pi\agent\bin\pi-launcher.js` line 28, which uses `spawnSync` to start the CLI. Tree kill and a stub test were added to P3-2.
   - Finding 5, commit durability and pi failure: **accepted**. Transactional save, separate outcomes, and tests in P3-1 and P4-3. The suggestion model is raised as Q-07.
 - 2026-10-14: carried the Q-01 to Q-05 answers into the build steps. Ratings are per base name and a Recheck button handles free results (P4-2). The round loop asks each model for 2×N ideas for at most 4 rounds and reports "found k of N" (P3-3 and generate.mjs). Free results are only re-checked manually (availability table). No change to scope.
+- 2026-10-14: User decision: the Anthropic login only works with the pi-provider-claude-ex extension. runPi now keeps --no-extensions and adds `-e C:/SOFT/git/pi-provider-claude-ex` when that folder exists; DC_PI_EXTENSION overrides the path. Live check: generate got answers from both models (errors: []), and the commit returned 5 suggestions from claude-opus-5-5. This resolves R-anthropic-login.
+- 2026-10-14 P5-1 prompt tuning, from 2 real projects × 3 rounds of N=10 on .com+.bg (gpt-6-astra + claude-opus-5-5); logs are in %TEMP%/dc-p51-{before,after,after2}.log.
+  - Ideation, before: by round 3 both models collapsed onto the medal pattern (albumof…, airy…), names grew to an average of 12.9 characters, and hyphen names appeared.
+  - Ideation added: "about two thirds build on loved/liked, one third tries clearly different directions"; "plain pairs of common words are almost always registered, prefer fresher combinations that stay easy to say and spell"; "no hyphens unless a rule asks".
+  - Rejected variant: "prefer short names" dropped interior .com free to 0/30 (wisehome, brightdesign and similar are all registered).
+  - Suggestions, before: they repeated pending suggestions and generalised from a single rating.
+  - Suggestions added: the pending suggestions are passed in (server ctx `pending`), plus "only patterns that more than one rating supports; never repeat a current rule or an already-suggested one; fewer or none is fine".

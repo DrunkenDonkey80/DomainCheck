@@ -83,13 +83,16 @@ Unsure: ${list(byRating(rated, 'wave'))}
 Rejected (avoid this direction): ${list(byRating(rated, 'reject'))}
 Already tried, never repeat: ${list(tried.slice(-300))}
 
-Give ${count} new, varied names that follow the rules and the liked direction.
+Give ${count} new names that follow the rules. About two thirds build on the loved and liked names;
+the other third must try clearly different directions (other words, structures, tones) so the search does not narrow too early.
+Plain pairs of common words (like wisehome) are almost always registered already; prefer fresher combinations that stay easy to say and spell.
+No hyphens unless a rule asks for them.
 Only lowercase a-z, 0-9 and hyphen, 3 to 20 characters, no hyphen at the start or end.
 Reply with ONLY a JSON array of lowercase labels without TLD.`;
 }
 
 export function buildSuggestPrompt(ctx, committed) {
-  const { project, rules, rated } = ctx;
+  const { project, rules, rated, pending = [] } = ctx;
   return `You help refine naming rules for a domain-name search.
 Project: ${project.name}
 Description: ${project.description || '(none)'}
@@ -98,7 +101,10 @@ ${rules.length ? rules.map((r) => `- ${r.text}`).join('\n') : '- (none)'}
 Just rated: ${committed.map((c) => `${c.label}=${c.rating ?? 'cleared'}`).join(', ')}
 All ratings so far: medal ${list(byRating(rated, 'medal'))}; liked ${list(byRating(rated, 'up'))}; unsure ${list(byRating(rated, 'wave'))}; rejected ${list(byRating(rated, 'reject'))}
 
+Already suggested, waiting for the user: ${list(pending.map((s) => s.text))}
+
 Suggest up to 5 short rule changes (new rules, or rewrites of a current rule) that capture what the user likes and dislikes.
+Only suggest a pattern that more than one rating supports. Never repeat a current rule or an already-suggested one; fewer or none is fine.
 Reply with ONLY a JSON array of strings, each one rule.`;
 }
 
