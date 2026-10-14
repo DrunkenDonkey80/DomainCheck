@@ -3,41 +3,41 @@
  "activeMs": 0,
  "runs": 0,
  "waitingMs": 44921,
- "toolWallMs": 964549,
+ "toolWallMs": 967726,
  "compactions": {
   "count": 0,
   "ms": 0
  },
  "models": {
   "anthropic/claude-opus-5-5:high": {
-   "replies": 15,
-   "thinkingMs": 74896,
-   "actingMs": 34658,
-   "input": 34,
-   "output": 10163,
-   "cacheRead": 1097605,
-   "cacheWrite": 152369,
-   "cost": 1.1847619999999999,
+   "replies": 23,
+   "thinkingMs": 101882,
+   "actingMs": 48076,
+   "input": 50,
+   "output": 13882,
+   "cacheRead": 1888511,
+   "cacheWrite": 161104,
+   "cost": 1.4610622,
    "errors": 0
   }
  },
  "tools": {
   "plan3": {
-   "count": 2,
-   "ms": 101,
+   "count": 6,
+   "ms": 162,
    "maxMs": 79,
    "failures": 0
   },
   "bash": {
-   "count": 6,
-   "ms": 952390,
+   "count": 12,
+   "ms": 954378,
    "maxMs": 900261,
    "failures": 1
   },
   "write": {
-   "count": 2,
-   "ms": 11,
-   "maxMs": 7,
+   "count": 3,
+   "ms": 20,
+   "maxMs": 9,
    "failures": 0
   },
   "web_enable": {
@@ -61,10 +61,16 @@
  },
  "categories": {
   "shell": {
-   "count": 6,
-   "ms": 952390,
+   "count": 11,
+   "ms": 953018,
    "maxMs": 900261,
    "failures": 1
+  },
+  "test": {
+   "count": 1,
+   "ms": 1360,
+   "maxMs": 1360,
+   "failures": 0
   }
  },
  "commands": {
@@ -103,6 +109,42 @@
    "ms": 85,
    "maxMs": 85,
    "failures": 0
+  },
+  "bash\u0000cd \".\" && ls docs/plans .ce-workflow && git add docs && git commit -qm \"P1-1: probe verification method limits, add D-08/D-09\" && git log --oneline": {
+   "count": 1,
+   "ms": 151,
+   "maxMs": 151,
+   "failures": 0
+  },
+  "bash\u0000node \"C:/Users/Flex/AppData/Local/Temp/dc-fixtures.mjs\" \"./test/fixtures\" doh": {
+   "count": 1,
+   "ms": 1360,
+   "maxMs": 1360,
+   "failures": 0
+  },
+  "bash\u0000cd \"./test/fixtures\" && for f in whois-eu-*.txt; do echo \"== $f\"; grep -vE \"^%|^\\s*$\" \"$f\" | head -12; done": {
+   "count": 1,
+   "ms": 119,
+   "maxMs": 119,
+   "failures": 0
+  },
+  "bash\u0000cd \"./test/fixtures\" && node \"C:/Users/Flex/AppData/Local/Temp/dc-fixtures.mjs\" . bg; printf \"<html><body>502 Bad Gateway</body></html>\" > doh-malformed.txt; ls": {
+   "count": 1,
+   "ms": 122,
+   "maxMs": 122,
+   "failures": 0
+  },
+  "bash\u0000cd \"./test/fixtures\" && printf \"DOMAIN NAME: dcfixture.bg\\nregistration status: available\\n\" > whois-bg-free.synthetic.txt && printf \"DOMAIN NAME: google.bg\\nregistration status: busy, active\\n\" > who": {
+   "count": 1,
+   "ms": 107,
+   "maxMs": 107,
+   "failures": 0
+  },
+  "bash\u0000cd \".\" && git add test/fixtures && git status --short": {
+   "count": 1,
+   "ms": 129,
+   "maxMs": 129,
+   "failures": 0
   }
  },
  "steps": {
@@ -114,6 +156,22 @@
     "anthropic/claude-opus-5-5:high": 15
    },
    "failures": 1
+  },
+  "P1-2": {
+   "ms": 39157,
+   "testMs": 1360,
+   "replies": 7,
+   "models": {
+    "anthropic/claude-opus-5-5:high": 7
+   }
+  },
+  "P2-1": {
+   "ms": 3305,
+   "testMs": 0,
+   "replies": 1,
+   "models": {
+    "anthropic/claude-opus-5-5:high": 1
+   }
   }
  },
  "spans": [],

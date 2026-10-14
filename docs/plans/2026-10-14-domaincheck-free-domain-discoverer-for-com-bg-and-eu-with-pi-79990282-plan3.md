@@ -2,7 +2,7 @@
 plan3: true
 status: ready
 created: 2026-10-14
-updated: 2026-10-14T14:52:07.518Z
+updated: 2026-10-14T14:52:48.974Z
 reviewed: 2026-10-14
 started: 2026-10-14T14:33:33.649Z
 ---
@@ -192,11 +192,7 @@ Design direction (frontend-design skill: `C:\soft\git\ce-workflow\skills\fronten
 ### Phase 1: Verification method limits [think]
 
 - [x] **P1-1** Probed all 6 methods. The D-08 table of caps and timeouts was added. .bg WHOIS throttles after 5 queries, so the user chose D-09: .bg is DNS-only and labelled "likely free", with WHOIS confirmation on demand.
-- [ ] **P1-2** Confirm the response markers and edge cases for each parser, using known taken, free and reserved names.
-  - DoH fixtures: a positive NS answer, NOERROR with an empty answer, NXDOMAIN, SERVFAIL, and a malformed reply.
-  - Also cover a .com without NS records, a reserved .eu, and a throttle reply text, saved as fixtures in `test/fixtures/`.
-  - .bg uses at most 3 live WHOIS queries (free, busy, throttle) and only once the block has lifted (D-08). The throttle text is already known: `Query limit exceeded, try again later.`
-  - Check: fixture files exist, one per method and outcome.
+- [x] **P1-2** 16 parser fixtures are in test/fixtures. The DoH, RDAP and WHOIS fixtures for .com and .eu, the .bg throttle reply and the reserved .eu ("Status: NOT AVAILABLE") are live captures. .bg free and taken are synthetic, built from the observed markers, because the registry is still blocking us. A malformed DoH reply is synthetic.
 
 ### Phase 2: Availability checker [code]
 
@@ -254,6 +250,9 @@ Design direction (frontend-design skill: `C:\soft\git\ce-workflow\skills\fronten
 - IDN support (Q-05).
 - A registrar link per free domain.
 - Export the shortlist.
+- Replace the synthetic .bg free and taken fixtures with live captures once whois.register.bg unblocks.
+- Find a real .com registered without NS records for a fixture; the pipeline already sends such names to the registry.
+
 
 ## Resume context
 

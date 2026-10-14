@@ -1,0 +1,23 @@
+{
+  "Status": 3,
+  "TC": false,
+  "RD": true,
+  "RA": true,
+  "AD": false,
+  "CD": false,
+  "Question": [
+    {
+      "name": "dcfixturejufd1tq.eu.",
+      "type": 2
+    }
+  ],
+  "Authority": [
+    {
+      "name": "eu.",
+      "type": 6,
+      "TTL": 600,
+      "data": "si.dns.eu. tech.eurid.eu. 1129006959 3600 1800 3600000 600"
+    }
+  ],
+  "Comment": "Response from 2001:67c:1010:23::53."
+}

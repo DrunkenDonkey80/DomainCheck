@@ -1,0 +1,22 @@
+{
+  "Status": 0,
+  "TC": false,
+  "RD": true,
+  "RA": true,
+  "AD": false,
+  "CD": false,
+  "Question": [
+    {
+      "name": "www.google.com",
+      "type": 2
+    }
+  ],
+  "Authority": [
+    {
+      "name": "google.com",
+      "type": 6,
+      "TTL": 17,
+      "data": "ns1.google.com. dns-admin.google.com. 999253699 900 900 1800 60"
+    }
+  ]
+}

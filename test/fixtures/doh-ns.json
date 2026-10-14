@@ -1,0 +1,40 @@
+{
+  "Status": 0,
+  "TC": false,
+  "RD": true,
+  "RA": true,
+  "AD": false,
+  "CD": false,
+  "Question": [
+    {
+      "name": "google.com",
+      "type": 2
+    }
+  ],
+  "Answer": [
+    {
+      "name": "google.com",
+      "type": 2,
+      "TTL": 341762,
+      "data": "ns2.google.com."
+    },
+    {
+      "name": "google.com",
+      "type": 2,
+      "TTL": 341762,
+      "data": "ns3.google.com."
+    },
+    {
+      "name": "google.com",
+      "type": 2,
+      "TTL": 341762,
+      "data": "ns1.google.com."
+    },
+    {
+      "name": "google.com",
+      "type": 2,
+      "TTL": 341762,
+      "data": "ns4.google.com."
+    }
+  ]
+}
