@@ -2,7 +2,7 @@
 plan3: true
 status: ready
 created: 2026-10-14
-updated: 2026-10-14T15:05:56.236Z
+updated: 2026-10-14T16:29:06.390Z
 reviewed: 2026-10-14
 started: 2026-10-14T14:33:33.649Z
 ---
@@ -134,6 +134,12 @@ Acceptance examples:
 
 
 
+## Requirements
+
+- **R-anthropic-login** pi's Anthropic credential works again. Today anthropic/claude-opus-5-5 returns "401 OAuth access token has been revoked". The user re-logs in to Anthropic in pi (run `pi`, then /login) so the planningModel (Q-07) and the second ideation model (D-03) answer.
+
+
+
 ## Open questions
 
 ### Blocking
@@ -209,10 +215,7 @@ Design direction (frontend-design skill: `C:\soft\git\ce-workflow\skills\fronten
 
 - [x] **P4-1** Added server.mjs with the full JSON API and static serving, and placeholder public/index.html. It checks Host and Origin, accepts JSON only, caps bodies at 64 KB, validates N, TLDs and ratings, confines paths to public/, blocks a second generation on the same project, and saves ratings before calling pi for suggestions. 8 HTTP tests. npm start suppresses the SQLite ExperimentalWarning.
 - [x] **P4-2** Built public/ (index.html, app.css, app.js) to the design direction. It has the project rail, brief, rules, suggestions with Accept and Ignore, the request bar, the board grouped by rating with wide-type names and TLD chips, staged ratings by click or keys 1-4 (0 clears), a sticky commit bar, the rejected filter with restore, Recheck and Confirm .bg. All text is set with textContent.
-- [wip] **P4-3** Wire the batch commit to a `suggestRules` call that runs once per commit and returns pending suggestions.
-  - Uses `workOrchestrator.plan3.planningModel` (Q-07), read from pi settings at runtime like D-03. Save and suggestion outcomes are separate, as described under Rating commit.
-  - Test with a stubbed `suggestRules`: a valid batch saves; an invalid batch rolls back; pi failing after the save keeps the ratings and returns an error. Check: C-TEST passes.
-  - Manual check: a commit of 3 ratings produces one pi call, visible in the server log, and suggestions appear.
+- [x] **P4-3** Rule suggestions after a ratings commit are covered by 3 HTTP tests: a valid batch saves and makes 1 suggestRules call, an invalid batch rolls back with no pi call, and a pi failure keeps the ratings and returns suggestError. Live check: the planningModel claude-opus-5-5 credential is revoked (R-anthropic-login). The handled-failure path worked live. The same prompt on gpt-6-astra returned 3 sensible rules in 3.8 s.
 
 ### Phase 5: Prompt quality and flow tuning [think]
 

@@ -1,0 +1,9 @@
+{
+	"day": {
+		"R-anthropic-login": true
+	},
+	"night": {
+		"human": false,
+		"R-anthropic-login": true
+	}
+}

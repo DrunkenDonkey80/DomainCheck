@@ -87,3 +87,45 @@ test('generate fills the board; rule CRUD works', async () => {
   assert.equal(d.status, 200, d.text);
   assert.equal(d.json.rules.length, 0);
 });
+
+// P4-3: batch commit saves atomically first, then one suggestRules call; pi failure keeps the ratings.
+async function projectWithBoard(name) {
+  const { id } = (await req('POST', '/api/projects', { body: { name } })).json;
+  await req('POST', `/api/projects/${id}/generate`, { body: { n: 2, tlds: ['com'] } });
+  return id;
+}
+
+test('valid batch saves, calls suggestRules once, stores suggestions', async () => {
+  const id = await projectWithBoard('Commit ok');
+  suggestCalls.length = 0;
+  const r = await req('POST', `/api/projects/${id}/ratings`, { body: { items: [{ label: 'fa', rating: 'medal' }, { label: 'fb', rating: 'reject' }] } });
+  assert.equal(r.status, 200, r.text);
+  assert.equal(r.json.saved, 2);
+  assert.equal(r.json.suggestError, null);
+  assert.equal(suggestCalls.length, 1);
+  assert.deepEqual(suggestCalls[0][1], [{ label: 'fa', rating: 'medal' }, { label: 'fb', rating: 'reject' }]);
+  assert.deepEqual(r.json.suggestions.map((s) => s.text), ['prefer short names']);
+  const acc = await req('POST', `/api/projects/${id}/suggestions/${r.json.suggestions[0].id}`, { body: { action: 'accept' } });
+  assert.deepEqual([acc.json.rules.map((x) => x.text), acc.json.suggestions.length], [['prefer short names'], 0]);
+});
+
+test('invalid batch rolls back and makes no pi call', async () => {
+  const id = await projectWithBoard('Commit bad');
+  suggestCalls.length = 0;
+  const r = await req('POST', `/api/projects/${id}/ratings`, { body: { items: [{ label: 'fa', rating: 'medal' }, { label: 'tc', rating: 'up' }] } });
+  assert.equal(r.status, 400); // tc was tried but never a candidate
+  assert.equal(suggestCalls.length, 0);
+  const v = (await req('GET', `/api/projects/${id}`)).json;
+  assert.equal(v.board.find((n) => n.label === 'fa').rating, null);
+});
+
+test('pi failure after the save keeps the ratings and reports the error', async () => {
+  const id = await projectWithBoard('Commit pi down');
+  suggestImpl = async () => { throw new Error('plan: timeout after 90000 ms'); };
+  try {
+    const r = await req('POST', `/api/projects/${id}/ratings`, { body: { items: [{ label: 'fa', rating: 'up' }] } });
+    assert.equal(r.status, 200);
+    assert.deepEqual([r.json.saved, r.json.suggestError], [1, 'plan: timeout after 90000 ms']);
+    assert.equal(r.json.board.find((n) => n.label === 'fa').rating, 'up');
+  } finally { suggestImpl = async () => ['prefer short names']; }
+});
