@@ -2,7 +2,7 @@
 plan3: true
 status: ready
 created: 2026-10-14
-updated: 2026-10-14T14:58:10.038Z
+updated: 2026-10-14T15:00:13.107Z
 reviewed: 2026-10-14
 started: 2026-10-14T14:33:33.649Z
 ---
@@ -207,9 +207,7 @@ Design direction (frontend-design skill: `C:\soft\git\ce-workflow\skills\fronten
 
 ### Phase 4: Web page and API [code]
 
-- [ ] **P4-1** Create `server.mjs` with the static file server and JSON API listed above, bound to 127.0.0.1.
-  - Add HTTP tests using a server started on an ephemeral port: wrong Host is refused, cross-origin POST is refused, non-JSON POST is refused, an oversized body is refused, and `/../` traversal is refused.
-  - Check: C-TEST passes. Then run C-RUN and confirm `curl http://127.0.0.1:8787/api/projects` returns `[]` on a fresh database.
+- [x] **P4-1** Added server.mjs with the full JSON API and static serving, and placeholder public/index.html. It checks Host and Origin, accepts JSON only, caps bodies at 64 KB, validates N, TLDs and ratings, confines paths to public/, blocks a second generation on the same project, and saves ratings before calling pi for suggestions. 8 HTTP tests. npm start suppresses the SQLite ExperimentalWarning.
 - [ ] **P4-2** Build `public/` following the design direction, with staged ratings, Commit, suggestion Accept and Ignore, and the rejected filter.
   - Ratings apply to the base name (Q-01). TLD chips are information only. A Recheck button re-checks a name's free domains (Q-02). .bg chips show "likely free" with a Confirm button and a pending state (D-09).
   - Check: C-RUN, then capture the page with `screen_read` (browser target, headless) at desktop and mobile widths, and review it against the direction.
