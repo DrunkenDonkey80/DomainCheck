@@ -109,7 +109,7 @@ function keyRate(e, n) {
 }
 
 function renderBoard() {
-  const groups = [...RATINGS.slice(0, 3).map((r) => ({ key: r.key, title: r.group })), { key: null, title: 'Not rated yet' }];
+  const groups = [{ key: null, title: 'Not rated yet' }, ...RATINGS.slice(0, 3).map((r) => ({ key: r.key, title: r.group }))];
   const visible = view.board.filter((n) => n.rating !== 'reject');
   const sections = groups.map((g) => {
     const names = visible.filter((n) => n.rating === g.key);

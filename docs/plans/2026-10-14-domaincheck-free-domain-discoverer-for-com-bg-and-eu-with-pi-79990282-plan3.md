@@ -2,7 +2,7 @@
 plan3: true
 status: ready
 created: 2026-10-14
-updated: 2026-10-14T16:40:42.561Z
+updated: 2026-10-14T21:16:47.363Z
 reviewed: 2026-10-14
 started: 2026-10-14T14:33:33.649Z
 ---
@@ -131,6 +131,8 @@ Acceptance examples:
   - Independent: yes
   - Answer: {"kind":"selection","selections":["planningModel"]}
   - Source: user via ask_user /plan3 resolve; not independently verified.
+- 2026-10-14 P5-2: the user tried the page on a real naming task and approved the flow and readability. One requested change: the "Not rated yet" group now comes first on the board, followed by Medal, Thumbs up and Unsure.
+
 
 
 
@@ -220,9 +222,7 @@ Design direction (frontend-design skill: `C:\soft\git\ce-workflow\skills\fronten
 ### Phase 5: Prompt quality and flow tuning [think]
 
 - [x] **P5-1** Ran 2 real projects (photobook and interior design) for 3 rounds each and tuned the ideation and suggestion prompts (see Amendments). Every round found 10 or more free names in 1 sub-round. .com free share was 10→26 of ~38 (photobook) and 21→34 of ~40 (interior), against 7→30 and 11→31 before. Hyphens dropped to 0, at most 6 names overlapped between models, and suggestions stopped repeating.
-- [human] **P5-2** User tries the page on a real naming task and confirms the flow and readability.
-  - Check: user approval, recorded in Decisions.
-  - note: Needs the user to try the page.
+- [x] **P5-2** The user tried the page on a real naming task and approved it. The one requested fix, unrated names on top, is done.
 
 ## Global validation
 
@@ -242,7 +242,7 @@ Design direction (frontend-design skill: `C:\soft\git\ce-workflow\skills\fronten
 
 ## Resume context
 
-All questions, Q-01 to Q-07, are answered and written into the plan. Surplus free names all become candidates, and rule suggestions use planningModel. The review findings are applied. No questions remain open. The repo has only git init and this plan. Next: P1-1, a rate-limit probe with a scratch script in %TEMP%, outside the repo.
+11/12 done; HEAD 514390f. Only P5-2 [human] remains: the user runs `npm start` in C:/SOFT/git/DomainCheck, opens http://127.0.0.1:8787, tries a real naming task, and confirms the flow and readability. Record the approval in Decisions, mark P5-2 done, and set the status to complete. pi child runs load only pi-provider-claude-ex (-e); DC_PI_EXTENSION overrides the path.
 
 ## Amendments
 
