@@ -1,0 +1,121 @@
+{
+ "version": 1,
+ "activeMs": 0,
+ "runs": 0,
+ "waitingMs": 44921,
+ "toolWallMs": 964549,
+ "compactions": {
+  "count": 0,
+  "ms": 0
+ },
+ "models": {
+  "anthropic/claude-opus-5-5:high": {
+   "replies": 15,
+   "thinkingMs": 74896,
+   "actingMs": 34658,
+   "input": 34,
+   "output": 10163,
+   "cacheRead": 1097605,
+   "cacheWrite": 152369,
+   "cost": 1.1847619999999999,
+   "errors": 0
+  }
+ },
+ "tools": {
+  "plan3": {
+   "count": 2,
+   "ms": 101,
+   "maxMs": 79,
+   "failures": 0
+  },
+  "bash": {
+   "count": 6,
+   "ms": 952390,
+   "maxMs": 900261,
+   "failures": 1
+  },
+  "write": {
+   "count": 2,
+   "ms": 11,
+   "maxMs": 7,
+   "failures": 0
+  },
+  "web_enable": {
+   "count": 1,
+   "ms": 1,
+   "maxMs": 1,
+   "failures": 0
+  },
+  "web_search": {
+   "count": 2,
+   "ms": 5468,
+   "maxMs": 3874,
+   "failures": 0
+  },
+  "edit": {
+   "count": 3,
+   "ms": 49,
+   "maxMs": 25,
+   "failures": 0
+  }
+ },
+ "categories": {
+  "shell": {
+   "count": 6,
+   "ms": 952390,
+   "maxMs": 900261,
+   "failures": 1
+  }
+ },
+ "commands": {
+  "bash\u0000cd \".\" && git status --short && git log --oneline -3 2>&1 | head -3; echo TEMP=$TEMP": {
+   "count": 1,
+   "ms": 98,
+   "maxMs": 98,
+   "failures": 0
+  },
+  "bash\u0000node \"C:/Users/Flex/AppData/Local/Temp/dc-probe.mjs\"": {
+   "count": 1,
+   "ms": 6571,
+   "maxMs": 6571,
+   "failures": 0
+  },
+  "bash\u0000node \"C:/Users/Flex/AppData/Local/Temp/dc-probe-bg.mjs\" 2000": {
+   "count": 1,
+   "ms": 45270,
+   "maxMs": 45270,
+   "failures": 0
+  },
+  "bash\u0000node \"C:/Users/Flex/AppData/Local/Temp/dc-probe-bg.mjs\" 10000": {
+   "count": 1,
+   "ms": 900261,
+   "maxMs": 900261,
+   "failures": 1
+  },
+  "bash\u0000node -e \"const s=require('net').connect(43,'whois.register.bg');let b='';s.on('connect',()=>s.write('google.bg\\r\\n'));s.on('data',x=>b+=x);s.on('end',()=>console.log(new Date().toISOString(),b.slice(0": {
+   "count": 1,
+   "ms": 105,
+   "maxMs": 105,
+   "failures": 0
+  },
+  "bash\u0000cd \"./docs/plans\" && grep -nE \"P1-2|P2-1|P2-2|P4-2|recheck, and|confirmBg\" -A4 \"2026-10-14-domaincheck-free-domain-discoverer-for-com-bg-and-eu-with-pi-79990282-plan3.md\" | grep -vE \"^\\s*$\" | head -60": {
+   "count": 1,
+   "ms": 85,
+   "maxMs": 85,
+   "failures": 0
+  }
+ },
+ "steps": {
+  "P1-1": {
+   "ms": 1067574,
+   "testMs": 0,
+   "replies": 15,
+   "models": {
+    "anthropic/claude-opus-5-5:high": 15
+   },
+   "failures": 1
+  }
+ },
+ "spans": [],
+ "hints": []
+}
