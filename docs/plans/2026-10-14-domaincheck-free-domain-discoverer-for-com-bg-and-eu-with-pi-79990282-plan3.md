@@ -2,7 +2,7 @@
 plan3: true
 status: ready
 created: 2026-10-14
-updated: 2026-10-14T14:55:18.180Z
+updated: 2026-10-14T14:56:27.493Z
 reviewed: 2026-10-14
 started: 2026-10-14T14:33:33.649Z
 ---
@@ -202,11 +202,8 @@ Design direction (frontend-design skill: `C:\soft\git\ce-workflow\skills\fronten
 ### Phase 3: Storage and ideation [code]
 
 - [x] **P3-1** Added src/db.mjs (node:sqlite, with cascading foreign keys) and 5 tests: round trip, unique tried names per project, a global availability cache where taken is final and unknown isn't stored, candidates-only rating with rollback of a bad batch, and rebuilding the board after reopening. The availability table drops the unused `method` column.
-- [ ] **P3-2** Create `src/ideas.mjs` with model loading from settings, prompt building, the parallel pi spawn, and label parsing and validation.
-  - Test parsing and validation with canned stdout.
-  - Timeout test: a stub launcher starts a long-lived grandchild; after the timeout, both processes are gone and the call resolves.
-  - Check: C-TEST passes.
-- [ ] **P3-3** Create `src/generate.mjs` with the round loop and cap, skipping tried names and taken-cached domains.
+- [x] **P3-2** Added src/ideas.mjs: models and planningModel come from settings, prompt builders, runPi kills the whole process tree on timeout, labels and suggestions are parsed and validated, generateIdeas runs the models in parallel, and suggestRules is included. The tests use a stub launcher.
+- [wip] **P3-3** Create `src/generate.mjs` with the round loop and cap, skipping tried names and taken-cached domains.
   - Test with stubbed ideas and check functions: it stops at N, stops after 4 rounds with "found k of N", requests 2×N ideas per model, and makes no repeat checks.
   - Also test N=1 with several free names in one round: all of them become candidates (Q-06). Also test that changing the ticked TLDs checks only the new ones.
   - Check: C-TEST passes.
