@@ -2,7 +2,7 @@
 plan3: true
 status: ready
 created: 2026-10-14
-updated: 2026-10-14T14:52:48.974Z
+updated: 2026-10-14T14:54:14.746Z
 reviewed: 2026-10-14
 started: 2026-10-14T14:33:33.649Z
 ---
@@ -196,9 +196,8 @@ Design direction (frontend-design skill: `C:\soft\git\ce-workflow\skills\fronten
 
 ### Phase 2: Availability checker [code]
 
-- [ ] **P2-1** Create `package.json`, `.gitignore` and `src/check.mjs` with the D-06 methods, D-07 pipeline, D-08 caps and the D-09 .bg flow.
-  - Check: C-TEST passes the parser tests against the P1-2 fixtures.
-- [ ] **P2-2** Add scheduler tests: the least-busy pick, cap respected, failover on error, and `unknown` when every method fails.
+- [x] **P2-1** Added package.json, .gitignore and src/check.mjs: parsers, DoH prefilter, least-busy scheduler with caps, failover and throttle backoff, the .bg "likely" result and the confirm queue.
+- [wip] **P2-2** Add scheduler tests: the least-busy pick, cap respected, failover on error, and `unknown` when every method fails.
   - Also test throttle backoff, and that the .bg confirm queue spaces queries and pauses after a limit reply (D-09).
   - Use stubbed methods, no network. Check: C-TEST passes.
 

@@ -3,41 +3,41 @@
  "activeMs": 0,
  "runs": 0,
  "waitingMs": 44921,
- "toolWallMs": 967726,
+ "toolWallMs": 970896,
  "compactions": {
   "count": 0,
   "ms": 0
  },
  "models": {
   "anthropic/claude-opus-5-5:high": {
-   "replies": 23,
-   "thinkingMs": 101882,
-   "actingMs": 48076,
-   "input": 50,
-   "output": 13882,
-   "cacheRead": 1888511,
-   "cacheWrite": 161104,
-   "cost": 1.4610622,
+   "replies": 30,
+   "thinkingMs": 135591,
+   "actingMs": 74134,
+   "input": 64,
+   "output": 20545,
+   "cacheRead": 2634110,
+   "cacheWrite": 169380,
+   "cost": 1.7848780000000002,
    "errors": 0
   }
  },
  "tools": {
   "plan3": {
-   "count": 6,
-   "ms": 162,
-   "maxMs": 79,
+   "count": 9,
+   "ms": 292,
+   "maxMs": 111,
    "failures": 0
   },
   "bash": {
-   "count": 12,
-   "ms": 954378,
+   "count": 15,
+   "ms": 955486,
    "maxMs": 900261,
    "failures": 1
   },
   "write": {
-   "count": 3,
-   "ms": 20,
-   "maxMs": 9,
+   "count": 7,
+   "ms": 63,
+   "maxMs": 27,
    "failures": 0
   },
   "web_enable": {
@@ -61,14 +61,14 @@
  },
  "categories": {
   "shell": {
-   "count": 11,
-   "ms": 953018,
+   "count": 13,
+   "ms": 953573,
    "maxMs": 900261,
    "failures": 1
   },
   "test": {
-   "count": 1,
-   "ms": 1360,
+   "count": 2,
+   "ms": 1913,
    "maxMs": 1360,
    "failures": 0
   }
@@ -145,6 +145,24 @@
    "ms": 129,
    "maxMs": 129,
    "failures": 0
+  },
+  "bash\u0000cd \".\" && grep -n \"synthetic .bg free\" docs/plans/*.md | head; git add docs test && git commit -qm \"P1-2: parser fixtures\" && git log --oneline | head -1": {
+   "count": 1,
+   "ms": 201,
+   "maxMs": 201,
+   "failures": 0
+  },
+  "bash\u0000cd \".\" && npm test 2>&1 | tail -15": {
+   "count": 1,
+   "ms": 553,
+   "maxMs": 553,
+   "failures": 0
+  },
+  "bash\u0000cd \".\" && node -e \"import('./src/check.mjs').then(async m=>{const c=m.createChecker();const r='dcsmoke'+Date.now().toString(36);const t=performance.now();console.log(await c.checkDomains(['google.com'": {
+   "count": 1,
+   "ms": 354,
+   "maxMs": 354,
+   "failures": 0
   }
  },
  "steps": {
@@ -166,11 +184,11 @@
    }
   },
   "P2-1": {
-   "ms": 3305,
-   "testMs": 0,
-   "replies": 1,
+   "ms": 64353,
+   "testMs": 553,
+   "replies": 8,
    "models": {
-    "anthropic/claude-opus-5-5:high": 1
+    "anthropic/claude-opus-5-5:high": 8
    }
   }
  },
