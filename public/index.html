@@ -1,5 +1,84 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><title>DomainCheck</title></head>
-<body><p>DomainCheck</p></body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DomainCheck</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&display=swap">
+  <link rel="stylesheet" href="/app.css">
+</head>
+<body>
+  <aside class="rail">
+    <h1 class="brand">DomainCheck</h1>
+    <nav aria-label="Projects"><ul id="projects" class="projects"></ul></nav>
+    <form id="new-project" class="new-project">
+      <label for="new-name">New project</label>
+      <div class="row">
+        <input id="new-name" name="name" maxlength="100" placeholder="Photobook shop" required>
+        <button type="submit">Create</button>
+      </div>
+    </form>
+  </aside>
+
+  <main id="main" class="main">
+    <section id="empty" class="empty">
+      <h2>Start with a project</h2>
+      <p>Create one on the left, describe what the site is for, then ask for names.</p>
+    </section>
+
+    <div id="project" hidden>
+      <header class="brief">
+        <input id="p-name" class="p-name" maxlength="100" aria-label="Project name">
+        <label for="p-desc">What the site is for</label>
+        <textarea id="p-desc" rows="2" maxlength="2000" placeholder="A studio that redesigns small apartments"></textarea>
+        <div class="brief-actions">
+          <button id="save-brief" type="button">Save description</button>
+          <button id="delete-project" type="button" class="quiet danger">Delete project</button>
+        </div>
+      </header>
+
+      <section class="rules" aria-labelledby="rules-h">
+        <h2 id="rules-h">Rules</h2>
+        <ul id="rules"></ul>
+        <form id="add-rule" class="row">
+          <input id="rule-text" maxlength="500" aria-label="New rule" placeholder="Contains design, home or house; may end in studio">
+          <button type="submit">Add rule</button>
+        </form>
+        <div id="suggestions" class="suggestions" hidden>
+          <h3>Suggested from your last ratings</h3>
+          <ul id="suggestion-list"></ul>
+        </div>
+      </section>
+
+      <form id="request" class="request">
+        <label class="count">Find <input id="n" type="number" min="1" max="50" value="10" required> free names</label>
+        <fieldset class="tlds">
+          <legend>in</legend>
+          <label><input type="checkbox" name="tld" value="com"> .com</label>
+          <label><input type="checkbox" name="tld" value="bg"> .bg</label>
+          <label><input type="checkbox" name="tld" value="eu"> .eu</label>
+        </fieldset>
+        <button id="generate" type="submit" class="primary">Find names</button>
+        <p id="status" class="status" role="status" aria-live="polite"></p>
+      </form>
+
+      <section id="board" class="board" aria-label="Candidates"></section>
+
+      <div class="rejected-toggle">
+        <button id="toggle-rejected" type="button" class="quiet" aria-expanded="false"></button>
+      </div>
+      <section id="rejected" class="board rejected" aria-label="Rejected names" hidden></section>
+    </div>
+  </main>
+
+  <div id="commit-bar" class="commit-bar" hidden>
+    <span id="staged-count"></span>
+    <button id="discard" type="button" class="quiet">Discard</button>
+    <button id="commit" type="button" class="primary">Commit ratings</button>
+  </div>
+
+  <script type="module" src="/app.js"></script>
+</body>
 </html>

@@ -2,7 +2,7 @@
 plan3: true
 status: ready
 created: 2026-10-14
-updated: 2026-10-14T15:00:13.107Z
+updated: 2026-10-14T15:05:56.236Z
 reviewed: 2026-10-14
 started: 2026-10-14T14:33:33.649Z
 ---
@@ -208,10 +208,8 @@ Design direction (frontend-design skill: `C:\soft\git\ce-workflow\skills\fronten
 ### Phase 4: Web page and API [code]
 
 - [x] **P4-1** Added server.mjs with the full JSON API and static serving, and placeholder public/index.html. It checks Host and Origin, accepts JSON only, caps bodies at 64 KB, validates N, TLDs and ratings, confines paths to public/, blocks a second generation on the same project, and saves ratings before calling pi for suggestions. 8 HTTP tests. npm start suppresses the SQLite ExperimentalWarning.
-- [ ] **P4-2** Build `public/` following the design direction, with staged ratings, Commit, suggestion Accept and Ignore, and the rejected filter.
-  - Ratings apply to the base name (Q-01). TLD chips are information only. A Recheck button re-checks a name's free domains (Q-02). .bg chips show "likely free" with a Confirm button and a pending state (D-09).
-  - Check: C-RUN, then capture the page with `screen_read` (browser target, headless) at desktop and mobile widths, and review it against the direction.
-- [ ] **P4-3** Wire the batch commit to a `suggestRules` call that runs once per commit and returns pending suggestions.
+- [x] **P4-2** Built public/ (index.html, app.css, app.js) to the design direction. It has the project rail, brief, rules, suggestions with Accept and Ignore, the request bar, the board grouped by rating with wide-type names and TLD chips, staged ratings by click or keys 1-4 (0 clears), a sticky commit bar, the rejected filter with restore, Recheck and Confirm .bg. All text is set with textContent.
+- [wip] **P4-3** Wire the batch commit to a `suggestRules` call that runs once per commit and returns pending suggestions.
   - Uses `workOrchestrator.plan3.planningModel` (Q-07), read from pi settings at runtime like D-03. Save and suggestion outcomes are separate, as described under Rating commit.
   - Test with a stubbed `suggestRules`: a valid batch saves; an invalid batch rolls back; pi failing after the save keeps the ratings and returns an error. Check: C-TEST passes.
   - Manual check: a commit of 3 ratings produces one pi call, visible in the server log, and suggestions appear.
