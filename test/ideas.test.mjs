@@ -1,10 +1,10 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
+import { existsSync, mkdtempSync, readFileSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
-import { parseLabels, parseSuggestions, buildPrompt, generateIdeas, suggestRules, runPi } from '../src/ideas.mjs';
+import { parseLabels, parseSuggestions, buildPrompt, generateIdeas, suggestRules, runPi, PROVIDER_EXT } from '../src/ideas.mjs';
 
 const launcher = fileURLToPath(new URL('./stub-launcher.cjs', import.meta.url));
 const alive = (pid) => { try { process.kill(pid, 0); return true; } catch { return false; } };
@@ -48,8 +48,8 @@ test('suggestRules uses the given planning model once', async () => {
 test('runPi passes prompt on stdin and returns stdout', async () => {
   process.env.STUB_MODE = 'echo';
   const out = await runPi({ model: 'm', thinking: 'high' }, 'hello', { launcher });
-  // node launcher --print --model m --thinking high + 5 flags = argv length 12
-  assert.deepEqual(parseLabels(out), ['echo-name', 'args12', 'gotstdin']);
+  // node launcher --print --model m --thinking high + 5 flags + -e ext = argv length 14 (12 without the provider extension)
+  assert.deepEqual(parseLabels(out), ['echo-name', existsSync(PROVIDER_EXT) ? 'args14' : 'args12', 'gotstdin']);
 });
 
 test('runPi timeout kills launcher and grandchild, then rejects', async () => {

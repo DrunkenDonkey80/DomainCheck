@@ -1,10 +1,12 @@
 // Name ideas and rule suggestions via `pi --print`, one child per model (D-02, D-03, Q-07).
 import { spawn, spawnSync } from 'node:child_process';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
 
 const AGENT = join(homedir(), '.pi', 'agent');
+// The Anthropic login only works through this provider extension; every other extension stays off.
+export const PROVIDER_EXT = process.env.DC_PI_EXTENSION || 'C:/SOFT/git/pi-provider-claude-ex';
 export const LABEL_RE = /^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$/;
 
 function plan3Settings() {
@@ -30,7 +32,8 @@ function killTree(child) {
 
 export function runPi({ model, thinking }, prompt, { timeoutMs = 90_000, launcher = process.env.PI_LAUNCHER || join(AGENT, 'bin', 'pi-launcher.js') } = {}) {
   const args = [launcher, '--print', '--model', model, ...(thinking ? ['--thinking', thinking] : []),
-    '--no-tools', '--no-session', '--no-extensions', '--no-skills', '--no-context-files'];
+    '--no-tools', '--no-session', '--no-extensions', ...(existsSync(PROVIDER_EXT) ? ['-e', PROVIDER_EXT] : []),
+    '--no-skills', '--no-context-files'];
   return new Promise((resolve, reject) => {
     const child = spawn(process.execPath, args, { windowsHide: true, detached: process.platform !== 'win32' });
     let out = '', err = '', timedOut = false;
