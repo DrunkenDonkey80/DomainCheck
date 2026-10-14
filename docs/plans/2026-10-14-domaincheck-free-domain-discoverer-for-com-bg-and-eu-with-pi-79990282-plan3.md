@@ -2,7 +2,7 @@
 plan3: true
 status: ready
 created: 2026-10-14
-updated: 2026-10-14T14:54:14.746Z
+updated: 2026-10-14T14:54:19.823Z
 reviewed: 2026-10-14
 started: 2026-10-14T14:33:33.649Z
 ---
@@ -197,9 +197,7 @@ Design direction (frontend-design skill: `C:\soft\git\ce-workflow\skills\fronten
 ### Phase 2: Availability checker [code]
 
 - [x] **P2-1** Added package.json, .gitignore and src/check.mjs: parsers, DoH prefilter, least-busy scheduler with caps, failover and throttle backoff, the .bg "likely" result and the confirm queue.
-- [wip] **P2-2** Add scheduler tests: the least-busy pick, cap respected, failover on error, and `unknown` when every method fails.
-  - Also test throttle backoff, and that the .bg confirm queue spaces queries and pauses after a limit reply (D-09).
-  - Use stubbed methods, no network. Check: C-TEST passes.
+- [x] **P2-2** test/scheduler.test.mjs covers least-busy load spreading under caps, skipping the registry when DNS says taken, failover, unknown when every method fails, throttle backoff, .bg DNS-only and the .bg confirm queue's spacing and pause.
 
 ### Phase 3: Storage and ideation [code]
 
