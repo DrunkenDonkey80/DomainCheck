@@ -2,7 +2,7 @@
 plan3: true
 status: ready
 created: 2026-10-14
-updated: 2026-10-14T14:56:27.493Z
+updated: 2026-10-14T14:58:10.038Z
 reviewed: 2026-10-14
 started: 2026-10-14T14:33:33.649Z
 ---
@@ -183,7 +183,7 @@ Design direction (frontend-design skill: `C:\soft\git\ce-workflow\skills\fronten
 
 ## Commands
 
-- **C-TEST:** `npm test`, which runs `node --test` (the Node built-in runner; defined by this plan because the repo has no existing commands).
+- **C-TEST:** `npm test`, which runs `node --test "test/*.test.mjs"`. The glob keeps `test/stub-launcher.cjs` from being run as a test. (the Node built-in runner; defined by this plan because the repo has no existing commands).
 - **C-RUN:** `npm start`, then open `http://127.0.0.1:8787`.
 - **C-PROBE:** `node "%TEMP%\dc-probe.mjs"`, a scratch rate-limit probe kept outside the repo.
 
@@ -203,10 +203,7 @@ Design direction (frontend-design skill: `C:\soft\git\ce-workflow\skills\fronten
 
 - [x] **P3-1** Added src/db.mjs (node:sqlite, with cascading foreign keys) and 5 tests: round trip, unique tried names per project, a global availability cache where taken is final and unknown isn't stored, candidates-only rating with rollback of a bad batch, and rebuilding the board after reopening. The availability table drops the unused `method` column.
 - [x] **P3-2** Added src/ideas.mjs: models and planningModel come from settings, prompt builders, runPi kills the whole process tree on timeout, labels and suggestions are parsed and validated, generateIdeas runs the models in parallel, and suggestRules is included. The tests use a stub launcher.
-- [wip] **P3-3** Create `src/generate.mjs` with the round loop and cap, skipping tried names and taken-cached domains.
-  - Test with stubbed ideas and check functions: it stops at N, stops after 4 rounds with "found k of N", requests 2×N ideas per model, and makes no repeat checks.
-  - Also test N=1 with several free names in one round: all of them become candidates (Q-06). Also test that changing the ticked TLDs checks only the new ones.
-  - Check: C-TEST passes.
+- [x] **P3-3** Added src/generate.mjs. Each round asks every model for 2×N ideas, for at most 4 rounds, and skips tried names and cached domains. Every free or likely-free name becomes a candidate, the TLD selection is remembered, and a round where every model fails ends the request. Narrowed the C-TEST glob.
 
 ### Phase 4: Web page and API [code]
 
