@@ -199,6 +199,20 @@ $('request').addEventListener('submit', async (e) => {
   finally { $('generate').disabled = false; }
 });
 $('toggle-rejected').addEventListener('click', () => { showRejected = !showRejected; renderBoard(); });
+// Standalone HTML of saved liked names (medal, then thumbs up). Built with el(), so names are escaped.
+$('export').addEventListener('click', () => {
+  const liked = ['medal', 'up'].flatMap((k) => view.board.filter((n) => n.rating === k));
+  if (!liked.length) return status('No liked names to export yet. Rate and commit first.', 'warn');
+  const icon = { medal: '🥇', up: '👍' };
+  const rows = liked.map((n) => el('li', {}, el('span', { class: 'r', text: icon[n.rating] }), el('b', { text: n.label }),
+    ...Object.entries(n.tlds).map(([t, s]) => el('span', { class: `t ${s}`, text: `.${t} ${CHIP[s] ?? s}` }))));
+  const body = el('body', {}, el('h1', { text: view.project.name }), el('p', { text: view.project.description }), el('ol', {}, ...rows));
+  const css = 'body{font:16px/1.5 system-ui,sans-serif;max-width:46rem;margin:2rem auto;padding:0 1rem;color:#16202E}ol{list-style:none;padding:0}li{display:flex;gap:.6rem;align-items:baseline;padding:.4rem 0;border-bottom:1px solid #C9D1DA;flex-wrap:wrap}b{font-size:1.4rem;min-width:12rem}.t{font-size:.8rem;border:1px solid #9AA4B0;border-radius:99px;padding:0 .5rem;color:#6B7684}.t.free{background:#1F7A57;border-color:#1F7A57;color:#fff}.t.likely{border:1px dashed #1F7A57;color:#1F7A57}.t.taken{text-decoration:line-through}';
+  const html = `<!doctype html><html lang="en"><meta charset="utf-8"><title>${el('i', { text: view.project.name }).innerHTML}: liked names</title><style>${css}</style>${body.outerHTML}</html>`;
+  const a = el('a', { href: URL.createObjectURL(new Blob([html], { type: 'text/html' })), download: `${view.project.name.replace(/[^\w-]+/g, '-')}-liked.html` });
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
 $('discard').addEventListener('click', () => { staged.clear(); renderBoard(); });
 $('commit').addEventListener('click', async () => {
   const items = [...staged].map(([label, rating]) => ({ label, rating }));
